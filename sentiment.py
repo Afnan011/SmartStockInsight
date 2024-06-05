@@ -194,6 +194,18 @@ def plot_sentiment_distribution(df, stock_ticker):
     plt.ylabel('Count')
     plt.savefig(rf'./images/{stock_ticker}_sentiment_distribution.png')
 
+def plot_sentiment_pie_chart(df, stock_ticker):
+    sentiment_counts = df['Label'].value_counts()
+    sentiment_labels = ['Positive' if x == 1 else 'Neutral' if x == 0 else 'Negative' for x in sentiment_counts.index]
+    colors = ['green', 'grey', 'red']
+    
+    plt.figure(figsize=(8, 6))
+    plt.pie(sentiment_counts, labels=sentiment_labels, autopct='%1.1f%%', colors=colors, startangle=140)
+    plt.title(f'Sentiment Distribution for {stock_ticker}')
+    
+    output_dir = f'./static/images/'
+    plt.savefig(os.path.join(output_dir, f'{stock_ticker}_sentiment_graph.png'))
+
 def main(stock_idx=0):
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "ONGC"]
     logging.info(f"Fetching news for {stock_list[stock_idx]}")
@@ -212,6 +224,7 @@ def main(stock_idx=0):
 
     # plot_news_count(df_grouped, stock_list[stock_idx])
     plot_sentiment_distribution(df_grouped, stock_list[stock_idx])
+    plot_sentiment_pie_chart(df_grouped, stock_list[stock_idx])
 
 
     df_grouped.set_index('Date', inplace=True)

@@ -77,9 +77,27 @@
 
         <div class="card mb-4">
             <div class="card-header text-center">
-                <h2>Prediction</h2>
+                <h2>Sentiment Graph</h2>
             </div>
             <div class="card-body text-center">
+                <p id="sentiment_para">
+                    The sentiment analysis graph provides a visual representation of the sentiment associated with the latest news 
+                    articles about the <b>{{ stock_details.name }}</b> stock over the past six months. This analysis aggregates data from multiple sources, 
+                    including Yahoo Finance, NewsAPI, Moneycontrol, and Google News. Using advanced natural language processing techniques, 
+                    each news article is classified into one of three sentiment categories:<b> Positive, Neutral, or Negative</b>. The pie chart below 
+                    displays the proportion of news articles falling into each category, offering insights into the overall market sentiment 
+                    towards the stock during this period.
+                </p>
+                <img src="{{ url_for('static', filename='images/' + sentiment_graph) }}" alt="Sentiment Graph"
+                    class="img-fluid" width="600">
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header text-center">
+                <h2>Prediction</h2>
+            </div>
+            <div class="card-body text-center" id="prediction_para">
                 <p>Current Price: <strong>{{ stock_details.current_price }}</strong></p>
                 <p>Predicted Price: <strong>{{ predicted_price }}</strong></p>
                 {% if recommendation %}
@@ -89,13 +107,14 @@
                 {% endif %}
             </div>
         </div>
+        
 
         <div class="card mb-4">
             <div class="card-header text-center">
                 <h2>Prediction Graph</h2>
             </div>
             <div class="card-body text-center">
-                <img src="{{ url_for('static', filename='images/' + graph_filename) }}" alt="Prediction Graph"
+                <img src="{{ url_for('static', filename='images/' + prediction_graph) }}" alt="Prediction Graph"
                     class="img-fluid">
             </div>
         </div>

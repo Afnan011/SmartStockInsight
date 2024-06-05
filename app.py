@@ -42,7 +42,8 @@ def index():
 
     selected_stock = None
     predicted_price = None
-    graph_filename = None
+    prediction_graph = None
+    sentiment_graph = None
     stock_details = None
     recommendation = None
     fundamental_insights= None
@@ -52,7 +53,8 @@ def index():
         stock_ticker = stock_dict[selected_stock]
         stock_details = get_stock_details(stock_ticker)
         predicted_price = get_predicted_price(selected_stock)
-        graph_filename = f"{selected_stock}_stock_price_prediction_next_month.png"
+        prediction_graph = f"{selected_stock}_stock_price_prediction_next_month.png"
+        sentiment_graph = f'{selected_stock}_sentiment_graph.png'
 
         if stock_details['current_price'] != 'N/A' and predicted_price is not None:
             current_price = stock_details['current_price']
@@ -72,7 +74,7 @@ def index():
         print(fundamental_insights)
 
     return render_template('index.html', stock_list=stock_list, selected_stock=selected_stock, 
-                           predicted_price=predicted_price, graph_filename=graph_filename, 
+                           predicted_price=predicted_price, prediction_graph=prediction_graph, sentiment_graph=sentiment_graph,
                            stock_details=stock_details, recommendation=recommendation, fundamental_insights=fundamental_insights)
 
 def get_predicted_price(stock_name):
@@ -127,4 +129,6 @@ def stock_chart_data():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    # app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(debug=True)
+    
