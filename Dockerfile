@@ -23,4 +23,4 @@ EXPOSE 5000
 # ENV VAR_NAME value
 
 # Run app.py when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["python", "app:app"]
