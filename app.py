@@ -36,8 +36,8 @@ def get_fundamental_analysis(stock_info):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "ONGC"]
-    ticker_list = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'ONGC.NS']
+    stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
+    ticker_list = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'TECHM.NS']
     stock_dict = dict(zip(stock_list, ticker_list))
 
     selected_stock = None

@@ -31,7 +31,7 @@ def get_random_date():
     return start_date + datetime.timedelta(days=random_days)
 
 def fetch_yahoo_finance_news(stock_idx):
-    stock_name_yfinance = ["TCS.NS/news", "TATAMOTORS.NS/news", "INFY/latest-news", "ASIANPAINT.NS/news", "ONGC.NS/news"]
+    stock_name_yfinance = ["TCS.NS/news", "TATAMOTORS.NS/news", "INFY/latest-news", "ASIANPAINT.NS/news", "TECHM.NS/news/"]
     url = f"https://finance.yahoo.com/quote/{stock_name_yfinance[stock_idx]}"
     headers = {'User-Agent': 'Mozilla/5.0'}
     
@@ -71,7 +71,7 @@ def fetch_newsapi_news(stock_idx):
     end_date = datetime.datetime.now().date()
     start_date = end_date - datetime.timedelta(days=30)
     
-    stocks_name_news_api = ["Tata Consultancy Services", "Tata Motors", "Infosys", "Asian Paints", "ONGC"]
+    stocks_name_news_api = ["Tata Consultancy Services", "Tata Motors", "Infosys", "Asian Paints", "Tech Mahindra Ltd"]
     all_articles = newsapi.get_everything(q=stocks_name_news_api[stock_idx],
                                           from_param=start_date.strftime('%Y-%m-%d'),
                                           to=end_date.strftime('%Y-%m-%d'),
@@ -95,7 +95,7 @@ def fetch_newsapi_news(stock_idx):
     return df
 
 def fetch_moneycontrol_news(stock_idx):
-    stocks_name_moneycontrol = ["TCS", "TEL", "IT", "API", "ONG"]
+    stocks_name_moneycontrol = ["TCS", "TEL", "IT", "API", "TM4"]
     url = f"https://www.moneycontrol.com/stocks/company_info/stock_news.php?sc_id={stocks_name_moneycontrol[stock_idx]}"
     headers = {'User-Agent': 'Mozilla/5.0'}
 
@@ -135,7 +135,7 @@ def fetch_moneycontrol_news(stock_idx):
     return df
 
 def fetch_google_news(stock_idx):
-    stock_name_gnews = ["TCS", "Tata Motors", "Infosys", "Asian Paints", "ONGC"]
+    stock_name_gnews = ["TCS", "Tata Motors", "Infosys", "Asian Paints", "Tech Mahindra Ltd"]
     googlenews = GoogleNews()
     googlenews.search(stock_name_gnews[stock_idx])
     result = googlenews.result()
@@ -207,7 +207,7 @@ def plot_sentiment_pie_chart(df, stock_ticker):
     plt.savefig(os.path.join(output_dir, f'{stock_ticker}_sentiment_graph.png'))
 
 def main(stock_idx=0):
-    stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "ONGC"]
+    stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
     logging.info(f"Fetching news for {stock_list[stock_idx]}")
     df_yfinance = fetch_yahoo_finance_news(stock_idx)
     df_news_api = fetch_newsapi_news(stock_idx)
@@ -244,7 +244,8 @@ def main(stock_idx=0):
     logging.info(df_grouped.shape)
 
 if __name__ == "__main__":
-
-    stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "ONGC"]
-    for idx in range(len(stock_list)):
-        main(idx)
+    # stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
+    # for idx in range(len(stock_list)):
+    #     main(idx)
+    main(0)
+    main(1)

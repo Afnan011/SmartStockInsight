@@ -124,8 +124,8 @@
     {% if selected_stock %}
     <script>
         let selectedStock = "{{ selected_stock }}";
-        const stockList = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "ONGC"]
-        const ticker = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'ONGC.NS']
+        const stockList = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
+        const ticker = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'TECHM.NS']
         const stockMap = Object.fromEntries(
             stockList.map((stock, index) => [stock, ticker[index]])
         );
