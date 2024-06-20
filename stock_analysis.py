@@ -3,12 +3,16 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import json
 from ta import add_all_ta_features
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, LSTM, Dropout, Bidirectional, GRU, Conv1D, MaxPooling1D, Flatten, concatenate, Input
 from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.regularizers import l1
 from tensorflow.keras.regularizers import l2
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 def load_stock_data(ticker, period='1y', interval='1d'):
@@ -150,6 +154,18 @@ def calculate_metrics(y_train_inverse, train_predict_inverse, y_test_inverse, te
 
     return {'train': train_metrics, 'test': test_metrics}
 
+def save_metrics(metric):
+    try:
+        with open('./predictions/metrics.json', 'r') as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = []
+
+    data.append(metric)
+
+    with open('./predictions/metrics.json', 'w') as f:
+        json.dump(data, f, indent=2)
+
 def predict_future(model, last_days, time_step, num_features, scaler):
     predictions = []
     current_input = last_days.reshape(1, time_step, num_features)
@@ -201,11 +217,15 @@ def main(stock_idx = 0, epochs_count = 150):
     train_predict_inverse, test_predict_inverse, y_train_inverse, y_test_inverse = evaluate_model(model, X_train, y_train, X_test, y_test, scaler, combined_df, time_step, './images', stock_list[stock_idx])
 
     metrics = calculate_metrics(y_train_inverse, train_predict_inverse, y_test_inverse, test_predict_inverse)
-    for dataset, metric in metrics.items():
-        print(f"{dataset.capitalize()} Metrics:")
-        for metric_name, value in metric.items():
-            print(f"{metric_name}: {value}")
-        print()
+    # save the metrics within prediction directory as json for each stock prediction
+    metric = {
+        'Stock': stock_list[stock_idx],
+        'Train': metrics['train'],
+        'Test': metrics['test']
+    }
+
+    save_metrics(metric)
+    print(metric, end='\n\n')
 
     last_days = scaled_features[-time_step:]
     predictions = predict_future(model, last_days, time_step, X.shape[2], scaler)
@@ -234,7 +254,12 @@ def main(stock_idx = 0, epochs_count = 150):
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
     for idx in range(len(stock_list)):
-        main(idx)
+        print("*"*50, end='\n\n')
+        print("Predicting for ", stock_list[idx])
+        if idx == 3 or idx == 4:
+            main(idx)
+        # main(idx)
+        print("*"*50, end='\n\n')
     # main(0)
     # main(1, 25)
     # main(2, 100)
