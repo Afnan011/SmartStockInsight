@@ -4,8 +4,23 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.hero-sub-section{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 1.5rem;
+}
+
+.left-section{
+    flex: 1;
+}
+
+.right-section{
+    flex: 1;
+    margin-left: 1rem;
+}
+
 .container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: auto;
     padding: 20px;
 }
@@ -98,13 +113,17 @@ p{
 }
 
 
+
 @media screen and (max-width: 767px) {
     body {
         font-size: 14px;
     }
 
-    .container {
-        padding: 15px;
+    .hero-sub-section{
+        flex-direction: column;
+    }
+    .right-section{
+        margin: 0;
     }
 
     h1 {

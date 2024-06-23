@@ -35,45 +35,45 @@ def get_fundamental_analysis(stock_info):
     }
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def home():
+    return render_template('index.html')
+
+@app.route('/stock_analysis', methods=['GET', 'POST'])
+def stock_analysis():
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
     ticker_list = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'TECHM.NS']
     stock_dict = dict(zip(stock_list, ticker_list))
 
-    selected_stock = None
-    predicted_price = None
-    prediction_graph = None
-    sentiment_graph = None
-    stock_details = None
-    recommendation = None
-    fundamental_insights= None
-
     if request.method == 'POST':
         selected_stock = request.form['stock']
-        stock_ticker = stock_dict[selected_stock]
-        stock_details = get_stock_details(stock_ticker)
-        predicted_price = get_predicted_price(selected_stock)
-        prediction_graph = f"{selected_stock}_stock_price_prediction_next_month.png"
-        sentiment_graph = f'{selected_stock}_sentiment_graph.png'
+    else:
+        selected_stock = stock_list[0]  # Default to first stock
 
-        if stock_details['current_price'] != 'N/A' and predicted_price is not None:
-            current_price = stock_details['current_price']
-            predicted_price = float(predicted_price)
-            if predicted_price > current_price:
-                recommendation = 'Buy'
-            elif predicted_price < current_price:
-                recommendation = 'Sell'
-            else:
-                recommendation = 'Hold'
-                
-        fundamental_insights = get_fundamental_insights(
-            stock_details['fundamental_analysis']['market_cap'],
-            stock_details['fundamental_analysis']['pe_ratio'],
-            stock_details['fundamental_analysis']['dividend_yield']
-        )
-        print(fundamental_insights)
+    stock_ticker = stock_dict[selected_stock]
+    stock_details = get_stock_details(stock_ticker)
+    predicted_price = get_predicted_price(selected_stock)
+    prediction_graph = f"{selected_stock}_stock_price_prediction_next_month.png"
+    sentiment_graph = f'{selected_stock}_sentiment_graph.png'
 
-    return render_template('index.html', stock_list=stock_list, selected_stock=selected_stock, 
+    if stock_details['current_price'] != 'N/A' and predicted_price is not None:
+        current_price = stock_details['current_price']
+        predicted_price = float(predicted_price)
+        if predicted_price > current_price:
+            recommendation = 'Buy'
+        elif predicted_price < current_price:
+            recommendation = 'Sell'
+        else:
+            recommendation = 'Hold'
+            
+    fundamental_insights = get_fundamental_insights(
+        stock_details['fundamental_analysis']['market_cap'],
+        stock_details['fundamental_analysis']['pe_ratio'],
+        stock_details['fundamental_analysis']['dividend_yield']
+    )
+    print(fundamental_insights)
+        
+
+    return render_template('stock_analysis.html', stock_list=stock_list, selected_stock=selected_stock, 
                            predicted_price=predicted_price, prediction_graph=prediction_graph, sentiment_graph=sentiment_graph,
                            stock_details=stock_details, recommendation=recommendation, fundamental_insights=fundamental_insights)
 
@@ -129,6 +129,6 @@ def stock_chart_data():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-    # app.run(debug=True)
+    # app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(debug=True, port=3000)
     

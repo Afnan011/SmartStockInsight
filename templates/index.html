@@ -1,253 +1,146 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Stock Prediction</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <title>SmartStock Insight</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStock Insight - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='Icon/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='Icon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='Icon/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='Icon/site.webmanifest') }}">
-    <link rel="mask-icon" href="{{ url_for('static', filename='Icon/safari-pinned-tab.svg') }}" color="#5bbad5">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .navbar {
+            background-color: #1e1e1e;
+            min-height: 5rem;
+        }
+
+        .logo{
+            font-weight: 500;
+            letter-spacing: 0.11rem;
+            line-height: 150%;
+        }
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: none;
+            height: 100%;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .section-spacing {
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1 class="text-center mb-4">Stock Prediction</h1>
-        <form method="post" class="stock-select text-center mb-4">
-            <div class="form-group">
-                <label for="stock">Select Stock:</label>
-                <select name="stock" id="stock" class="form-select mx-auto" style="max-width: 300px;">
-                    {% for stock in stock_list %}
-                    <option value="{{ stock }}" {% if stock==selected_stock %}selected{% endif %}>{{ stock }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-        </form>
-
-        {% if selected_stock %}
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>{{ selected_stock }}</h2>
-            </div>
-            <div class="card-body">
-                <h3>Stock Details</h3>
-                <ul class="list-unstyled">
-                    <li><strong>Name:</strong> {{ stock_details.name }}</li>
-                    <li><strong>Sector:</strong> {{ stock_details.sector }}</li>
-                    <li><strong>Industry:</strong> {{ stock_details.industry }}</li>
-                    <li><strong>Website:</strong> <a href="{{ stock_details.website }}" target="_blank">{{
-                            stock_details.website }}</a></li>
-                </ul>
-                <p><strong>Description:</strong> {{ stock_details.description }}</p>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>Fundamental Analysis</h2>
-            </div>
-            <div class="card-body fundamental-analysis">
-                <p>Market Cap: {{ stock_details.fundamental_analysis.market_cap }}</p>
-                <p>PE Ratio: {{ stock_details.fundamental_analysis.pe_ratio }}</p>
-                <p>Dividend Yield: {{ stock_details.fundamental_analysis.dividend_yield }}</p>
-                <ul class="list-unstyled">
-                    <li><em><q>{{ fundamental_insights }}</q></em></li>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <!-- <img src="{{ url_for('static', filename='Icon/logo.png') }}" alt="SmartStockInsight"
+                        class="img-fluid" width="50"> -->
+            <a class="navbar-brand logo" href="#">SmartStock Insight</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stock_analysis">Stock Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
                 </ul>
             </div>
         </div>
+    </nav>
 
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>Price Chart</h2>
-            </div>
-            <div class="card-body text-center">
-                <select id="chartType" class="form-select mx-auto" style="max-width: 300px; margin-bottom: 20px;">
-                    <option value="line">Line</option>
-                    <option value="candlestick">Candlestick</option>
-                    <option value="bar">Bar</option>
-                    <option value="scatter">Scatter</option>
-                </select>
-                <div id="plotlyChart"></div>
-                <button class="btn btn-primary mt-3" id="fullscreenBtn">View Full Screen</button>
-            </div>
+    <header class="hero text-center text-white">
+        <div class="container">
+            <h1 class="display-4 mb-4">Welcome to SmartStock Insight</h1>
+            <p class="lead mb-4">Predict stock prices with sentiment analysis and historical data</p>
+            <a href="/stock_analysis" class="btn btn-primary btn-lg">Get Started</a>
         </div>
+    </header>
 
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>Sentiment Graph</h2>
+    <main class="container">
+        <section class="row section-spacing">
+            <div class="col-md-6">
+                <h2 class="mb-4">About the Project</h2>
+                <p>SmartStock Insight is a web application for predicting stock prices using sentiment analysis and historical stock data. Our advanced machine learning models combine LSTM, GRU, and CNN layers to provide accurate predictions and recommendations.</p>
             </div>
-            <div class="card-body text-center">
-                <p id="sentiment_para">
-                    The sentiment analysis graph provides a visual representation of the sentiment associated with the latest news 
-                    articles about the <b>{{ stock_details.name }}</b> stock over the past six months. This analysis aggregates data from multiple sources, 
-                    including Yahoo Finance, NewsAPI, Moneycontrol, and Google News. Using advanced natural language processing techniques, 
-                    each news article is classified into one of three sentiment categories:<b> Positive, Neutral, or Negative</b>. The pie chart below 
-                    displays the proportion of news articles falling into each category, offering insights into the overall market sentiment 
-                    towards the stock during this period.
-                </p>
-                <img src="{{ url_for('static', filename='images/' + sentiment_graph) }}" alt="Sentiment Graph"
-                    class="img-fluid" width="600">
+            <div class="col-md-6">
+                <h2 class="mb-4">Key Features</h2>
+                <ul>
+                    <li>Stock selection and detailed information</li>
+                    <li>Sentiment analysis from news articles</li>
+                    <li>Historical data analysis</li>
+                    <li>Price predictions and recommendations</li>
+                    <li>Interactive live stock price charts</li>
+                </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>Prediction</h2>
+        <section class="row section-spacing">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Sentiment Analysis</h5>
+                        <p class="card-text">Integrate sentiment analysis results from news articles to enhance prediction accuracy.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body text-center" id="prediction_para">
-                <p>Current Price: <strong>{{ stock_details.current_price }}</strong></p>
-                <p>Predicted Price: <strong>{{ predicted_price }}</strong></p>
-                {% if recommendation %}
-                <p class="recommendation-{{ recommendation | lower }}">
-                    Recommendation: <strong>{{ recommendation }}</strong>
-                </p>
-                {% endif %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Machine Learning Models</h5>
+                        <p class="card-text">Utilize advanced LSTM, GRU, and CNN models for precise stock price predictions.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-
-        <div class="card mb-4">
-            <div class="card-header text-center">
-                <h2>Prediction Graph</h2>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Live Charts</h5>
+                        <p class="card-text">View interactive charts with options for line or candlestick representations of stock data.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body text-center">
-                <img src="{{ url_for('static', filename='images/' + prediction_graph) }}" alt="Prediction Graph"
-                    class="img-fluid">
-            </div>
-        </div>
+        </section>
 
-        {% endif %}
-    </div>
-    {% if selected_stock %}
-    <script>
-        let selectedStock = "{{ selected_stock }}";
-        const stockList = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
-        const ticker = ['TCS.NS', 'TATAMOTORS.NS', 'INFY.NS', 'ASIANPAINT.NS', 'TECHM.NS']
-        const stockMap = Object.fromEntries(
-            stockList.map((stock, index) => [stock, ticker[index]])
-        );
+        <section class="text-center section-spacing">
+            <h2 class="mb-4">Ready to get started?</h2>
+            <p class="mb-4">Explore our stock analysis tools and make informed investment decisions.</p>
+            <a href="https://github.com/Afnan011/SmartStockInsight" class="btn btn-primary" target="_blank">View on GitHub</a>
+        </section>
+    </main>
 
-        selectedStock = stockMap[selectedStock];
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="m-0">&copy; 2023 SmartStock Insight. Created by Afnan.</p>
+    </footer>
 
-        function getRoundedValue(num) {
-            return Math.round(num * 100) / 100;
-        }
-
-        function renderChart(type, data) {
-            let trace;
-            if (type === 'line') {
-                trace = {
-                    x: data.map(d => d.x),
-                    y: data.map(d => getRoundedValue(d.close)),
-                    mode: 'lines',
-                    name: 'Price',
-                    line: { color: '#1e90ff', width: 2 }
-                };
-            } else if (type === 'candlestick') {
-                trace = {
-                    x: data.map(d => d.x),
-                    close: data.map(d => getRoundedValue(d.close)),
-                    high: data.map(d => getRoundedValue(d.high)),
-                    low: data.map(d => getRoundedValue(d.low)),
-                    open: data.map(d => getRoundedValue(d.open)),
-                    type: 'candlestick',
-                    name: 'Price',
-                    increasing: { line: { color: '#1e90ff' } },
-                    decreasing: { line: { color: '#ff6347' } }
-                };
-            } else if (type === 'bar') {
-                trace = {
-                    x: data.map(d => d.x),
-                    y: data.map(d => getRoundedValue(d.close)),
-                    type: 'bar',
-                    name: 'Price',
-                    marker: { color: '#1e90ff' }
-                };
-            } else if (type === 'scatter') {
-                trace = {
-                    x: data.map(d => d.x),
-                    y: data.map(d => getRoundedValue(d.close)),
-                    mode: 'markers',
-                    name: 'Price',
-                    marker: { color: '#1e90ff', size: 8 }
-                };
-            }
-
-            const layout = {
-                paper_bgcolor: '#121212',
-                plot_bgcolor: '#121212',
-                font: {
-                    color: '#e0e0e0'
-                },
-                xaxis: {
-                    type: 'date',
-                    title: 'Date',
-                    gridcolor: '#444'
-                },
-                yaxis: {
-                    title: 'Price',
-                    gridcolor: '#444'
-                },
-                showlegend: false
-            };
-
-            const config = {
-                responsive: true
-            };
-
-            Plotly.newPlot('plotlyChart', [trace], layout, config);
-
-            const plotlyChart = document.getElementById('plotlyChart');
-            plotlyChart.on('plotly_doubleclick', function () {
-                Plotly.relayout(plotlyChart, {
-                    'xaxis.autorange': true,
-                    'yaxis.autorange': true
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch(`/stock_chart_data?stock=${selectedStock}`)
-                .then(response => response.json())
-                .then(data => {
-                    const chartType = document.getElementById('chartType').value;
-                    renderChart(chartType, data);
-
-                    document.getElementById('chartType').addEventListener('change', function () {
-                        const selectedChartType = this.value;
-                        renderChart(selectedChartType, data);
-                    });
-                })
-                .catch(error => console.error('Error fetching chart data:', error));
-
-            const fullscreenBtn = document.getElementById('fullscreenBtn');
-            fullscreenBtn.addEventListener('click', function () {
-                const plotlyChart = document.getElementById('plotlyChart');
-                if (plotlyChart.requestFullscreen) {
-                    plotlyChart.requestFullscreen();
-                } else if (plotlyChart.mozRequestFullScreen) { // Firefox
-                    plotlyChart.mozRequestFullScreen();
-                } else if (plotlyChart.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    plotlyChart.webkitRequestFullscreen();
-                } else if (plotlyChart.msRequestFullscreen) { // IE/Edge
-                    plotlyChart.msRequestFullscreen();
-                }
-            });
-        });
-    </script>
-    {% endif %}
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
