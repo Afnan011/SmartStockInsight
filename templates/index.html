@@ -28,6 +28,11 @@
             position: fixed;
             width: 100%;
             z-index: 999;
+            box-shadow: 1px 1px 5px 0px #0c0c0c;
+        }
+
+        .navbar .container{
+            max-width: 1300px;
         }
 
         .logo{
@@ -61,6 +66,13 @@
             margin-top: 4rem;
             margin-bottom: 4rem;
         }
+        .about-pr p{
+            text-align: justify;
+        }
+        footer{
+            background-color:#1e1e1e;
+        }
+
         @media screen and (max-width: 767px) {
             footer span{
                 display: block;
@@ -84,13 +96,13 @@
                         <a class="nav-link active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/" target="_blank">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/stock_analysis">Stock Analysis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/" target="_blank">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -107,7 +119,7 @@
 
     <main class="container">
         <section class="row section-spacing">
-            <div class="col-md-6">
+            <div class="col-md-6 about-pr">
                 <h2 class="mb-4">About the Project</h2>
                 <p>SmartStock Insight is a web application for predicting stock prices using sentiment analysis and 
                     historical stock data. Our advanced machine learning models combine LSTM layers to 
@@ -159,7 +171,7 @@
         </section>
     </main>
 
-    <footer class="bg-dark text-white text-center py-3 mt-5">
+    <footer class="text-white text-center py-3 mt-5">
         <p class="m-0">&copy; 2023 SmartStock Insight. <span>Created by Afnan.</span></p>
     </footer>
 
