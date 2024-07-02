@@ -1,2 +1,0 @@
-1. Change the nav color and add some drop shadow
-2. justify the content in about project (index.html)
