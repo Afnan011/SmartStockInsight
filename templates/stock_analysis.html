@@ -11,287 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <!-- <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet"> -->
+    <link href="{{ url_for('static', filename='css/stock_analysis.css') }}" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='Icon/apple-touch-icon.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='Icon/favicon-32x32.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='Icon/favicon-16x16.png') }}" />
     <link rel="manifest" href="{{ url_for('static', filename='Icon/site.webmanifest') }}" />
     <link rel="mask-icon" href="{{ url_for('static', filename='Icon/safari-pinned-tab.svg') }}" color="#5bbad5" />
-    <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: "Montserrat", sans-serif;
-        }
-
-        .navbar {
-            background-color: #1e1e1e;
-            min-height: 5rem;
-            position: fixed;
-            width: 100%;
-            z-index: 999;
-            box-shadow: 1px 1px 5px 0px #0c0c0c;
-        }
-
-        .logo {
-            font-weight: 500;
-            letter-spacing: 0.11rem;
-            line-height: 150%;
-        }
-
-        .hero-sub-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .left-section {
-            flex: 2;
-            min-width: 300px;
-        }
-
-        .right-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: auto;
-        }
-
-        .pd {
-            padding: 3rem;
-            padding-bottom: 0;
-            padding-top: 7rem;
-        }
-
-        .card {
-            background-color: #1e1e1e;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            margin-top: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-header {
-            background-color: #333;
-            border-bottom: 1px solid #444;
-            border-radius: 10px 10px 0 0;
-            padding: 15px;
-            font-weight: bold;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .recommendation-buy {
-            color: #4caf50;
-        }
-
-        .recommendation-sell {
-            color: #f44336;
-        }
-
-        .recommendation-hold {
-            color: #ffeb3b;
-        }
-
-        .stock-select label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .stock-select select {
-            margin: 10px 0;
-        }
-
-        a {
-            color: #1e90ff;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #63a4ff;
-        }
-
-        .fundamental-analysis ul {
-            padding-left: 20px;
-        }
-
-        #plotlyChart {
-            width: 100%;
-            height: 400px;
-        }
-
-        p {
-            text-align: justify;
-            line-height: 1.6;
-        }
-
-        #prediction_para p {
-            text-align: center;
-        }
-
-        #sentiment_para img {
-            margin: 0.5rem;
-        }
-
-        .stock-chips {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .stock-chip {
-            border-radius: 20px;
-            padding: 5px 15px;
-            transition: all 0.3s ease;
-        }
-
-        .stock-chip.active {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .overlay-content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .overlay-content img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: red;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        footer{
-            background-color:#1e1e1e;
-        }
-
-        footer p {
-            text-align: center;
-        }
-
-        .loader-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media screen and (max-width: 767px) {
-            body {
-                font-size: 14px;
-            }
-
-            .hero-sub-section {
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .pd {
-                padding: 15px;
-                padding-bottom: 3px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            h2 {
-                font-size: 1.6rem;
-            }
-
-            h3 {
-                font-size: 1.4rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            .stock-chips {
-                margin-top: 4.7rem;
-            }
-
-            .stock-chip {
-                font-size: 0.9rem;
-            }
-
-            footer span {
-                display: block;
-            }
-        }
-    </style>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -310,13 +35,15 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/" target="_blank">About</a>
+                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/"
+                            target="_blank">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Stock Analysis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/" target="_blank">Contact</a>
+                        <a class="nav-link" href="https://www.linkedin.com/in/mahammad-afnan-m/"
+                            target="_blank">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -453,7 +180,8 @@
             </div>
         </div>
 
-        
+        <button id="scrollToTopBtn" title="Go to top">&#8593;</button>
+
         <div id="imageOverlay" class="overlay">
             <span class="close-btn">&times;</span>
             <div class="overlay-content">
@@ -489,7 +217,7 @@
 
                     setTimeout(() => {
                         stockForm.submit();
-                    }, Math.random() * 1000); 
+                    }, Math.random() * 1000);
                 });
             });
         });
@@ -671,6 +399,24 @@
                 }
             });
         });
+    </script>
+    <script>
+        let scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+
+        scrollToTopBtn.onclick = function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
     </script>
     <footer class="text-white text-center py-3 mt-5">
         <p class="m-0">
