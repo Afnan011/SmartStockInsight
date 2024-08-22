@@ -256,9 +256,7 @@ if __name__ == "__main__":
     for idx in range(len(stock_list)):
         print("*"*50, end='\n\n')
         print("Predicting for ", stock_list[idx])
-        if idx == 3 or idx == 4:
-            main(idx)
-        # main(idx)
+        main(idx)
         print("*"*50, end='\n\n')
     # main(0)
     # main(1, 25)
