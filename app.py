@@ -34,9 +34,27 @@ def get_fundamental_analysis(stock_info):
         'dividend_yield': stock_info.get('dividendYield', 'N/A')
     }
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
+
+def get_recommendation(predicted_price, current_price, threshold_percentage=0.05):
+    threshold = current_price * threshold_percentage
+    price_difference = predicted_price - current_price
+
+    if price_difference > threshold:
+        recommendation = 'Buy'
+    elif 0 < price_difference <= threshold:
+        recommendation = 'Hold' # weak buy
+    elif price_difference == 0:
+        recommendation = 'Hold' # neutral
+    elif -threshold <= price_difference < 0:
+        recommendation = 'Hold' # weak sell
+    else:  # price_difference < -threshold
+        recommendation = 'Sell'
+
+    return recommendation
 
 @app.route('/stock_analysis', methods=['GET', 'POST'])
 def stock_analysis():
@@ -58,12 +76,7 @@ def stock_analysis():
     if stock_details['current_price'] != 'N/A' and predicted_price is not None:
         current_price = stock_details['current_price']
         predicted_price = float(predicted_price)
-        if predicted_price > current_price:
-            recommendation = 'Buy'
-        elif predicted_price < current_price:
-            recommendation = 'Sell'
-        else:
-            recommendation = 'Hold'
+        recommendation = get_recommendation(predicted_price, current_price)
             
     fundamental_insights = get_fundamental_insights(
         stock_details['fundamental_analysis']['market_cap'],

@@ -194,16 +194,28 @@ def plot_sentiment_distribution(df, stock_ticker):
     plt.ylabel('Count')
     plt.savefig(rf'./images/{stock_ticker}_sentiment_distribution.png')
 
+# def plot_sentiment_pie_chart(df, stock_ticker):
+#     sentiment_counts = df['Label'].value_counts()
+#     sentiment_labels = ['Positive' if x == 1 else 'Neutral' if x == 0 else 'Negative' for x in sentiment_counts.index]
+#     colors = ['green', 'grey', 'red']
+    
+#     plt.figure(figsize=(8, 6))
+#     plt.pie(sentiment_counts, labels=sentiment_labels, autopct='%1.1f%%', colors=colors, startangle=140)
+#     plt.title(f'Sentiment Distribution for {stock_ticker}')
+    
+#     output_dir = f'./static/images/'
+#     plt.savefig(os.path.join(output_dir, f'{stock_ticker}_sentiment_graph.png'))
+
 def plot_sentiment_pie_chart(df, stock_ticker):
-    sentiment_counts = df['Label'].value_counts()
-    sentiment_labels = ['Positive' if x == 1 else 'Neutral' if x == 0 else 'Negative' for x in sentiment_counts.index]
-    colors = ['green', 'grey', 'red']
+    sentiment_counts = df['Label'].value_counts().sort_index()
+    sentiment_labels = ['Negative', 'Neutral', 'Positive']
+    colors = ['red', 'gray', 'green']
     
     plt.figure(figsize=(8, 6))
     plt.pie(sentiment_counts, labels=sentiment_labels, autopct='%1.1f%%', colors=colors, startangle=140)
     plt.title(f'Sentiment Distribution for {stock_ticker}')
     
-    output_dir = f'./static/images/'
+    output_dir = './static/images/'
     plt.savefig(os.path.join(output_dir, f'{stock_ticker}_sentiment_graph.png'))
 
 def main(stock_idx=0):
@@ -247,5 +259,8 @@ if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
     for idx in range(len(stock_list)):
         main(idx)
+
+    # plot_sentiment_pie_chart(pd.read_csv(rf'./Dataset/TCS_sentiment_data.csv'), 'TCS')
+
     # main(0)
     # main(1)
