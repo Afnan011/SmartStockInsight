@@ -20,9 +20,9 @@ This project is a web application for predicting stock prices using sentiment an
 - **Machine Learning Models**: TensorFlow, Keras
 - **Deployment**: Docker
 
-## Machine Learning Models
+<!-- ## Machine Learning Models -->
 
-The prediction model is built using a combination of Long Short-Term Memory (LSTM), Gated Recurrent Unit (GRU), and Convolutional Neural Network (CNN) layers. This combination allows the model to capture both temporal dependencies and spatial features in the stock price data, enhancing the prediction accuracy.
+<!-- The prediction model is built using a combination of Long Short-Term Memory (LSTM), Gated Recurrent Unit (GRU), and Convolutional Neural Network (CNN) layers. This combination allows the model to capture both temporal dependencies and spatial features in the stock price data, enhancing the prediction accuracy. -->
 
 ## Installation
 
@@ -79,6 +79,7 @@ The prediction model is built using a combination of Long Short-Term Memory (LST
 ## Preview
 
 You can preview the deployed website [here](https://smartstockinsight.onrender.com/).
+You can view entire project report or document from [here](./Report/4VP22MC027_MAHAMMAD_AFNAN_M.pdf).
 
 ## Contributing
 
