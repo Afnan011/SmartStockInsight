@@ -78,7 +78,10 @@ This project is a web application for predicting stock prices using sentiment an
 
 ## Preview
 
-You can preview the deployed website [here](https://smartstockinsight.onrender.com/).
+You can preview the deployed website [here](https://smartstockinsight.onrender.com/). 
+
+
+## Report
 You can view entire project report or document from [here](./Report/4VP22MC027_MAHAMMAD_AFNAN_M.pdf).
 
 ## Contributing
