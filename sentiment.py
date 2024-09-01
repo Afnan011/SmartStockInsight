@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
 import os
+import concurrent.futures
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -255,12 +256,15 @@ def main(stock_idx=0):
     logging.info(df_grouped.head())
     logging.info(df_grouped.shape)
 
+
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
-    for idx in range(len(stock_list)):
-        main(idx)
 
-    # plot_sentiment_pie_chart(pd.read_csv(rf'./Dataset/TCS_sentiment_data.csv'), 'TCS')
+    def run_main(stock_idx):
+        main(stock_idx)
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(run_main, range(len(stock_list)))
 
     # main(0)
     # main(1)

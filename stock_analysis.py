@@ -14,6 +14,8 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import concurrent.futures
+
 
 def load_stock_data(ticker, period='1y', interval='1d'):
     return yf.download(ticker, period=period, interval=interval)
@@ -198,7 +200,6 @@ def main(stock_idx = 0, epochs_count = 150):
     top_n_features.insert(1, 'Label')
     features = combined_df[top_n_features]
 
-    # Ensure 'Close' is the first feature in the dataset
     features = features[['Close'] + [col for col in features.columns if col != 'Close']]
 
     scaled_features, scaler = scale_features(features)
@@ -217,7 +218,6 @@ def main(stock_idx = 0, epochs_count = 150):
     train_predict_inverse, test_predict_inverse, y_train_inverse, y_test_inverse = evaluate_model(model, X_train, y_train, X_test, y_test, scaler, combined_df, time_step, './images', stock_list[stock_idx])
 
     metrics = calculate_metrics(y_train_inverse, train_predict_inverse, y_test_inverse, test_predict_inverse)
-    # save the metrics within prediction directory as json for each stock prediction
     metric = {
         'Stock': stock_list[stock_idx],
         'Train': metrics['train'],
@@ -233,7 +233,6 @@ def main(stock_idx = 0, epochs_count = 150):
     
     print(predictions)
     print("Prediction is: ", prediction_price_mean)
-    # save the prediction_mean along with the stock name in csv
     file_path = './predictions/stock_price_prediction.csv'
     if os.path.exists(file_path):
         predictions_df = pd.read_csv(file_path, index_col=0)
@@ -253,11 +252,17 @@ def main(stock_idx = 0, epochs_count = 150):
 
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
-    for idx in range(len(stock_list)):
-        print("*"*50, end='\n\n')
-        print("Predicting for ", stock_list[idx])
-        main(idx)
-        print("*"*50, end='\n\n')
+
+    def run_main(stock_idx):
+        for idx in range(len(stock_list)):
+            print("*"*50, end='\n\n')
+            print("Predicting for ", stock_list[idx])
+            main(idx)
+            print("*"*50, end='\n\n')
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(run_main, range(len(stock_list)))
+
     # main(0)
     # main(1, 25)
     # main(2, 100)
