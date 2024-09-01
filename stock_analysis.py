@@ -253,15 +253,12 @@ def main(stock_idx = 0, epochs_count = 150):
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
 
-    def run_main(stock_idx):
-        for idx in range(len(stock_list)):
-            print("*"*50, end='\n\n')
-            print("Predicting for ", stock_list[idx])
-            main(idx)
-            print("*"*50, end='\n\n')
+    for idx in range(len(stock_list)):
+        print("*"*50, end='\n\n')
+        print("Predicting for ", stock_list[idx])
+        main(idx)
+        print("*"*50, end='\n\n')
     
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(run_main, range(len(stock_list)))
 
     # main(0)
     # main(1, 25)
