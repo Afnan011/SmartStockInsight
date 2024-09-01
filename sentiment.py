@@ -266,5 +266,7 @@ if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(run_main, range(len(stock_list)))
 
+    plt.close('all')
+
     # main(0)
     # main(1)
