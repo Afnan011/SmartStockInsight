@@ -72,8 +72,8 @@ This project is a web application for predicting stock prices using sentiment an
 
 ## Usage
 
-1. **Select Stock**: Choose a stock from the dropdown menu and click "Submit".
-2. **View Details**: See stock details, current price, predicted price, and recommendation.
+1. **Select Stock**: Choose a stock from the listed stock.
+2. **View Details**: See stock details, current price, predicted price, and analysis.
 3. **Analyze Graphs**: View the prediction graph and live stock price chart.
 
 ## Preview
@@ -94,6 +94,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-- **Afnan**
+- **Mahammad Afnan M**
 
 For any inquiries or support, please contact [muhammedafnan8184@gmail.com](mailto://muhammedafnan8184@gmail.com).
