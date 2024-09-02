@@ -260,9 +260,9 @@ def main(stock_idx=0):
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
 
-    # for idx in range(len(stock_list)):
-    #     main(idx)
+    for idx in range(len(stock_list)):
+        main(idx)
 
 
     # main(0)
-    main(4)
+    # main(4)

@@ -253,13 +253,13 @@ def main(stock_idx = 0, epochs_count = 150):
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
 
-    # for idx in range(len(stock_list)):
-    #     print("*"*50, end='\n\n')
-    #     print("Predicting for ", stock_list[idx])
-    #     main(idx)
-    #     print("*"*50, end='\n\n')
+    for idx in range(len(stock_list)):
+        print("*"*50, end='\n\n')
+        print("Predicting for ", stock_list[idx])
+        main(idx)
+        print("*"*50, end='\n\n')
 
-    main(4)
+    # main(4)
     
 
     # main(0)
