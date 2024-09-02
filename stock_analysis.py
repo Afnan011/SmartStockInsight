@@ -14,7 +14,7 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import concurrent.futures
+
 
 
 def load_stock_data(ticker, period='1y', interval='1d'):
@@ -253,11 +253,13 @@ def main(stock_idx = 0, epochs_count = 150):
 if __name__ == "__main__":
     stock_list = ["TCS", "Tata_Motors", "Infosys", "Asian_Paints", "Tech_Mahindra_Ltd"]
 
-    for idx in range(len(stock_list)):
-        print("*"*50, end='\n\n')
-        print("Predicting for ", stock_list[idx])
-        main(idx)
-        print("*"*50, end='\n\n')
+    # for idx in range(len(stock_list)):
+    #     print("*"*50, end='\n\n')
+    #     print("Predicting for ", stock_list[idx])
+    #     main(idx)
+    #     print("*"*50, end='\n\n')
+
+    main(4)
     
 
     # main(0)
